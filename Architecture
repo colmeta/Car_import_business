@@ -923,3 +923,548 @@ model BlogPost {
   metaTitle       String?
   metaDescription String?
   keywords        String[]
+"Continue
+
+5:10 PM
+<invoke name="artifacts"> <parameter name="command">update</parameter> <parameter name="id">car_import_architecture</parameter> <parameter name="old_str"> keywords String[]</parameter> <parameter name="new_str"> keywords String[]
+// Categorization
+category        String
+tags            String[]
+
+// Publishing
+status          PostStatus @default(DRAFT)
+publishedAt     DateTime?
+
+// Analytics
+viewCount       Int        @default(0)
+
+createdAt       DateTime   @default(now())
+updatedAt       DateTime   @updatedAt
+
+@@index([slug])
+@@index([status, publishedAt])
+@@map("blog_posts")
+}
+
+// ============================================
+// LEADS & CRM
+// ============================================
+
+enum LeadStatus {
+NEW
+CONTACTED
+QUALIFIED
+HOT
+WARM
+COLD
+CONVERTED
+LOST
+}
+
+enum LeadSource {
+WEBSITE
+WHATSAPP
+FACEBOOK
+INSTAGRAM
+REFERRAL
+WALK_IN
+CORPORATE_OUTREACH
+OTHER
+}
+
+model Lead {
+id             String      @id @default(cuid())
+
+// Contact Info
+name           String
+email          String?
+phone          String
+
+// Lead Details
+status         LeadStatus  @default(NEW)
+source         LeadSource
+budget         Decimal?    @db.Decimal(12, 2)
+interestedIn   String?     // Vehicle preferences
+timeline       String?     // When they plan to buy
+
+// Scoring
+score          Int         @default(0) // 0-100
+
+// Assignment
+assignedTo     String?     // Sales agent ID
+
+// Tracking
+lastContactedAt DateTime?
+nextFollowUp    DateTime?
+
+// Notes
+notes          String?     @db.Text
+
+// Conversion
+convertedToUserId String?  @unique
+
+createdAt      DateTime    @default(now())
+updatedAt      DateTime    @updatedAt
+
+@@index([status, score])
+@@index([phone])
+@@map("leads")
+}
+
+// ============================================
+// ANALYTICS & TRACKING
+// ============================================
+
+model PageView {
+id         String   @id @default(cuid())
+path       String
+userAgent  String?
+referrer   String?
+country    String?
+city       String?
+
+createdAt DateTime @default(now())
+
+@@index([path, createdAt])
+@@map("page_views")
+}
+
+model SearchQuery {
+id         String   @id @default(cuid())
+query      String
+filters    Json?
+resultsCount Int
+
+createdAt DateTime @default(now())
+
+@@index([query])
+@@map("search_queries")
+}
+
+
+---
+
+## 🎨 DESIGN SYSTEM
+
+### Color Palette
+```typescript
+// src/lib/constants/colors.ts
+
+export const colors = {
+  // Brand Colors
+  brand: {
+    primary: '#3B82F6',      // Blue - Trust, professionalism
+    secondary: '#F59E0B',    // Amber - Energy, premium
+    accent: '#10B981',       // Green - Success
+  },
+  
+  // Semantic Colors
+  success: '#10B981',
+  warning: '#F59E0B',
+  error: '#EF4444',
+  info: '#3B82F6',
+  
+  // Neutral Colors (Dark Theme)
+  dark: {
+    900: '#0F172A',  // Almost black - backgrounds
+    800: '#1E293B',  // Dark - cards
+    700: '#334155',  // Medium - borders
+    600: '#475569',  // Light - disabled text
+  },
+  
+  // Light Colors
+  light: {
+    50: '#F8FAFC',   // Almost white
+    100: '#F1F5F9',  // Very light gray
+    200: '#E2E8F0',  // Light gray
+  },
+  
+  // Glassmorphism
+  glass: {
+    light: 'rgba(255, 255, 255, 0.1)',
+    dark: 'rgba(15, 23, 42, 0.6)',
+    border: 'rgba(255, 255, 255, 0.2)',
+  }
+}
+```
+
+### Typography
+```typescript
+// tailwind.config.ts - Font configuration
+
+const config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        heading: ['Poppins', 'sans-serif'],
+        mono: ['Space Grotesk', 'monospace'],
+      },
+      fontSize: {
+        'display': 'clamp(3rem, 6vw, 5rem)',
+        'h1': 'clamp(2.5rem, 5vw, 4rem)',
+        'h2': 'clamp(2rem, 4vw, 3rem)',
+        'h3': 'clamp(1.5rem, 3vw, 2rem)',
+        'h4': 'clamp(1.25rem, 2.5vw, 1.5rem)',
+      }
+    }
+  }
+}
+```
+
+### Glassmorphism Components
+```css
+/* src/styles/glassmorphism.css */
+
+.glass-card {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(59, 130, 246, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+}
+
+.glass-hero {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.glass-button {
+  background: rgba(59, 130, 246, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  transition: all 0.3s ease;
+}
+
+.glass-button:hover {
+  background: rgba(59, 130, 246, 0.4);
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #3B82F6 0%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.1) 0%,
+    rgba(245, 158, 11, 0.1) 100%
+  );
+}
+```
+
+### Animation System
+```typescript
+// src/lib/constants/animations.ts - Framer Motion Variants
+
+export const fadeInUp = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.6, 
+      ease: [0.4, 0, 0.2, 1] 
+    }
+  }
+}
+
+export const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.3
+    }
+  }
+}
+
+export const scaleIn = {
+  hidden: { scale: 0.8, opacity: 0 },
+  visible: { 
+    scale: 1, 
+    opacity: 1,
+    transition: { 
+      type: "spring", 
+      stiffness: 100,
+      damping: 15
+    }
+  }
+}
+
+export const slideInFromLeft = {
+  hidden: { x: -100, opacity: 0 },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.5 }
+  }
+}
+
+export const cardHover = {
+  rest: { scale: 1, y: 0 },
+  hover: { 
+    scale: 1.05,
+    y: -8,
+    transition: { 
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  }
+}
+```
+
+---
+
+## 🔐 SECURITY & COMPLIANCE
+
+### Security Measures
+```yaml
+Authentication:
+  - Supabase Auth (JWT-based)
+  - Email/password with verification
+  - OAuth (Google, Facebook)
+  - OTP for phone verification
+  - Role-based access control (RBAC)
+
+Data Protection:
+  - All passwords hashed (bcrypt)
+  - Sensitive data encrypted at rest
+  - HTTPS only (enforced)
+  - CORS properly configured
+  - Rate limiting on API routes
+  - SQL injection prevention (Prisma ORM)
+  - XSS protection (React auto-escaping)
+
+Payment Security:
+  - PCI DSS compliant (via Flutterwave/Stripe)
+  - No card data stored on our servers
+  - Webhook signature verification
+  - 3D Secure authentication
+
+Privacy Compliance:
+  - GDPR-ready (for diaspora EU customers)
+  - Clear privacy policy
+  - Cookie consent banner
+  - Data export functionality
+  - Right to deletion
+  - Data retention policies
+
+Escrow Security:
+  - Lawyer verified (Uganda Law Society)
+  - Escrow agreement digitally signed
+  - Multi-party verification
+  - Audit trail for all transactions
+  - Dispute resolution process
+```
+
+### Environment Variables
+```bash
+# .env.example
+
+# Application
+NEXT_PUBLIC_APP_URL=https://yourdomain.com
+NEXT_PUBLIC_APP_NAME="Your Business Name"
+
+# Database
+DATABASE_URL="postgresql://user:password@host:5432/dbname"
+
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+
+# Payments
+FLUTTERWAVE_PUBLIC_KEY=your_public_key
+FLUTTERWAVE_SECRET_KEY=your_secret_key
+FLUTTERWAVE_ENCRYPTION_KEY=your_encryption_key
+
+# Communication
+WHATSAPP_API_KEY=your_whatsapp_key
+WHATSAPP_PHONE_NUMBER=+256xxxxxxxxx
+RESEND_API_KEY=your_resend_key
+TWILIO_ACCOUNT_SID=your_sid
+TWILIO_AUTH_TOKEN=your_token
+
+# AI
+ANTHROPIC_API_KEY=your_claude_key
+
+# Google Services
+GOOGLE_MAPS_API_KEY=your_maps_key
+GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
+
+# Storage
+CLOUDFLARE_ACCOUNT_ID=your_account_id
+CLOUDFLARE_R2_ACCESS_KEY=your_access_key
+CLOUDFLARE_R2_SECRET_KEY=your_secret_key
+CLOUDFLARE_R2_BUCKET=your_bucket_name
+
+# Monitoring
+SENTRY_DSN=your_sentry_dsn
+```
+
+---
+
+## 🚀 DEVELOPMENT ROADMAP
+
+### Phase 1: MVP (Weeks 1-2) - LAUNCH READY
+
+**Week 1: Core Foundation**
+- ✅ Project setup (Next.js, TypeScript, Tailwind)
+- ✅ Database schema (Prisma)
+- ✅ Design system implementation
+- ✅ Homepage (hero, features, CTA)
+- ✅ Vehicle grid page (basic)
+- ✅ Vehicle detail page
+- ✅ Contact form
+- ✅ Basic responsive design
+
+**Week 2: Essential Features**
+- ✅ About page
+- ✅ How It Works page
+- ✅ Services page
+- ✅ Search & filter functionality
+- ✅ WhatsApp integration
+- ✅ Email notifications
+- ✅ Admin dashboard (basic CRUD)
+- ✅ Deploy to Vercel
+- ✅ Custom domain setup
+
+**Deliverable:** Functional website ready to collect leads and showcase inventory
+
+---
+
+### Phase 2: Enhanced Features (Weeks 3-4) - COMPETITIVE EDGE
+
+**Week 3: User Experience**
+- ✅ 360° image viewer
+- ✅ Image gallery with zoom
+- ✅ Advanced search (intelligent matching)
+- ✅ Filter persistence (saved in URL)
+- ✅ Price calculator (interactive)
+- ✅ Comparison tool (side-by-side)
+- ✅ Save vehicles (wishlist)
+- ✅ Share functionality
+
+**Week 4: Conversion Optimization**
+- ✅ AI chatbot (Claude integration)
+- ✅ Lead capture forms (optimized)
+- ✅ Financing calculator
+- ✅ Testimonials section (video)
+- ✅ Blog system (CMS)
+- ✅ SEO optimization
+- ✅ Analytics setup
+- ✅ Performance optimization (< 2s load)
+
+**Deliverable:** Feature-rich platform that converts visitors to customers
+
+---
+
+### Phase 3: Escrow & Trust (Week 5) - GAME CHANGER
+
+**Escrow System Implementation**
+- ✅ Escrow model (database)
+- ✅ Lawyer verification system
+- ✅ Escrow agreement generation
+- ✅ Multi-party workflow
+  - Customer deposits to lawyer
+  - Vehicle ordered & imported
+  - Customer inspects vehicle
+  - Customer approves/rejects
+  - Funds released/refunded
+- ✅ Document management
+- ✅ Email notifications (all parties)
+- ✅ SMS updates
+- ✅ Escrow dashboard (customer view)
+- ✅ Escrow admin panel
+
+**Trust Building Features**
+- ✅ Lawyer profiles (verified badges)
+- ✅ Escrow explainer page
+- ✅ Video walkthrough
+- ✅ Customer testimonials about escrow
+- ✅ FAQ section
+- ✅ "How Escrow Protects You" infographic
+
+**Deliverable:** Industry-first escrow system that eliminates buyer risk
+
+---
+
+### Phase 4: Advanced Features (Weeks 6-8) - INDUSTRY LEADING
+
+**Week 6: Customer Portal**
+- ✅ User authentication (Supabase Auth)
+- ✅ Customer dashboard
+- ✅ Order tracking (real-time)
+- ✅ Document repository (invoices, contracts)
+- ✅ Message center (chat with sales)
+- ✅ Saved vehicles & searches
+- ✅ Profile management
+
+**Week 7: Admin Enhancements**
+- ✅ Advanced CRM (lead management)
+- ✅ Order management system
+- ✅ Inventory management (batch upload)
+- ✅ Analytics dashboard
+- ✅ Report generation
+- ✅ Content management (blog)
+- ✅ Email campaign builder
+
+**Week 8: Premium Features**
+- ✅ Payment integration (Flutterwave/Stripe)
+- ✅ 3D vehicle viewer (Three.js)
+- ✅ Virtual showroom (optional)
+- ✅ Push notifications (PWA)
+- ✅ Multi-language (English/Luganda)
+- ✅ Dark/light mode toggle
+- ✅ Offline functionality
+
+**Deliverable:** Best car import platform in East Africa
+
+---
+
+### Phase 5: Scale & Optimize (Ongoing)
+
+**Performance**
+- Image optimization (CDN, WebP)
+- Code splitting & lazy loading
+- Database query optimization
+- Caching strategies
+- Load testing
+
+**Marketing Integration**
+- Google Ads tracking
+- Facebook Pixel
+- Email marketing (Mailchimp/Resend)
+- Retargeting campaigns
+- Affiliate program
+
+**Mobile Apps (Future)**
+- React Native (iOS/Android)
+- Native features (camera, GPS)
+- Push notifications
+- Offline mode
+
+---
+
+## 📱 FEATURE SPECIFICATIONS
+
+### 1. ESCROW SYSTEM (Detailed)</parameter>
