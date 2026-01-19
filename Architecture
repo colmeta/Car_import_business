@@ -1,0 +1,925 @@
+# 🚗 CAR IMPORT PLATFORM - COMPLETE ARCHITECTURE & ROADMAP
+
+**Version:** 1.0.0  
+**Last Updated:** January 19, 2026  
+**Status:** In Development
+
+---
+
+## 📋 TABLE OF CONTENTS
+
+1. [Executive Summary](#executive-summary)
+2. [Business Model](#business-model)
+3. [Technical Stack](#technical-stack)
+4. [System Architecture](#system-architecture)
+5. [Database Schema](#database-schema)
+6. [Feature Specifications](#feature-specifications)
+7. [Design System](#design-system)
+8. [Security & Compliance](#security--compliance)
+9. [Development Roadmap](#development-roadmap)
+10. [Deployment Strategy](#deployment-strategy)
+11. [Marketing Integration](#marketing-integration)
+12. [Escrow System](#escrow-system)
+
+---
+
+## 🎯 EXECUTIVE SUMMARY
+
+### Vision
+Build East Africa's most trusted and technologically advanced car import platform, combining Fortune 500-level design with glassmorphism aesthetics to create an unparalleled user experience.
+
+### Mission
+Democratize car importing by providing transparent pricing, seamless logistics, and professional service that makes importing from Dubai accessible to every Ugandan.
+
+### Core Value Propositions
+- **15-20% Cost Savings** vs local dealerships
+- **Full Transparency** - Complete cost breakdown
+- **3-5 Week Delivery** - Predictable timeline
+- **Quality Guarantee** - Inspection reports & warranty
+- **Escrow Protection** - Lawyer-held funds for trust
+
+---
+
+## 💼 BUSINESS MODEL
+
+### Revenue Streams
+
+#### 1. Direct Import & Retail (Primary)
+- Purchase vehicles in Dubai
+- Import to Kampala
+- Sell at markup
+- **Profit:** UGX 10-20M per vehicle
+
+#### 2. Pre-Order Service
+- Client selects car from Dubai inventory
+- We import on their behalf (40% deposit)
+- Lower risk, faster turnover
+- **Profit:** UGX 5-10M per vehicle
+
+#### 3. Corporate Fleet Solutions
+- Bulk orders (3-10+ vehicles)
+- Lower margins, higher volume
+- Professional procurement process
+- **Profit:** UGX 5-8M per vehicle
+
+#### 4. Ancillary Services
+- Inspection & documentation: UGX 500K-1M
+- Trade-in facilitation: Commission-based
+- After-sales warranty: UGX 300K-500K
+- Financing referrals: 2-3% commission
+
+### Customer Segments
+
+**Segment 1: Individual Buyers (Priority 1)**
+- Demographics: 28-45 years, professionals
+- Budget: UGX 40-100M
+- Volume: 40-50 cars/year
+- Conversion: Fast (1-2 weeks)
+
+**Segment 2: Diaspora Buyers (Priority 2)**
+- Demographics: Ugandans in US/UK/UAE
+- Buying for family in Uganda
+- Volume: 20-30 cars/year
+- Conversion: Medium (2-4 weeks)
+- Requires: Extra trust, documentation
+
+**Segment 3: Corporate/NGO (Priority 3)**
+- Demographics: Companies, NGOs, government
+- Volume: 10-20 cars/year
+- Conversion: Slow (4-8 weeks)
+- Requires: Professional proposals, compliance
+
+---
+
+## 🛠 TECHNICAL STACK
+
+### Frontend
+
+```yaml
+Framework: Next.js 14+
+  - App Router (latest routing system)
+  - Server Components (performance)
+  - Server Actions (API simplification)
+  
+Language: TypeScript 5+
+  - Full type safety
+  - Better developer experience
+  - Reduced bugs
+
+Styling: 
+  - Tailwind CSS 3.4+ (utility-first)
+  - Framer Motion (animations)
+  - Custom glassmorphism components
+  
+UI Components:
+  - Shadcn/ui (headless components)
+  - Radix UI (accessible primitives)
+  - Lucide Icons (modern icon set)
+  
+3D/Advanced:
+  - Three.js (3D vehicle viewer)
+  - React Three Fiber (React wrapper)
+  - GSAP (complex animations)
+```
+
+### Backend
+
+```yaml
+API: Next.js API Routes
+  - Serverless functions
+  - Edge runtime support
+  - Type-safe with TypeScript
+
+Database: Supabase (PostgreSQL)
+  - Real-time subscriptions
+  - Row Level Security (RLS)
+  - Built-in authentication
+  - Storage for images/documents
+  
+ORM: Prisma
+  - Type-safe database queries
+  - Auto-generated types
+  - Migration management
+  
+Cache: Vercel Edge Cache
+  - Global CDN
+  - Automatic cache invalidation
+```
+
+### Third-Party Integrations
+
+```yaml
+Payments:
+  - Flutterwave (Mobile Money, cards)
+  - Stripe (international cards)
+  - Bank transfer webhooks
+
+Communication:
+  - WhatsApp Business API
+  - Twilio (SMS notifications)
+  - Resend/SendGrid (emails)
+  
+AI/ML:
+  - Claude API (chatbot, recommendations)
+  - OpenAI DALL-E (placeholder images)
+  
+Analytics:
+  - Google Analytics 4
+  - Hotjar (heatmaps, recordings)
+  - Microsoft Clarity (session replay)
+  - PostHog (product analytics)
+  
+Maps & Location:
+  - Google Maps API
+  - Mapbox (custom styling)
+  
+Search:
+  - Algolia (instant search) OR
+  - Meilisearch (self-hosted alternative)
+  
+CRM:
+  - Custom built (Phase 2) OR
+  - Pipedrive API integration
+```
+
+### DevOps & Infrastructure
+
+```yaml
+Hosting: Vercel
+  - Automatic deployments
+  - Preview environments
+  - Edge functions
+  - 99.99% uptime SLA
+  
+CDN: Cloudflare
+  - DDoS protection
+  - Image optimization
+  - Edge caching
+  
+Storage:
+  - Supabase Storage (documents, invoices)
+  - Cloudflare R2 (vehicle images)
+  
+Monitoring:
+  - Sentry (error tracking)
+  - Vercel Analytics (web vitals)
+  - Uptime Robot (uptime monitoring)
+  
+Version Control: GitHub
+  - Main branch (production)
+  - Develop branch (staging)
+  - Feature branches (development)
+```
+
+---
+
+## 🏗 SYSTEM ARCHITECTURE
+
+### High-Level Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        CLIENT LAYER                          │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
+│  │  Desktop │  │  Mobile  │  │  Tablet  │  │   PWA    │   │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│                     CDN LAYER (Cloudflare)                   │
+│              Static Assets, Images, Edge Cache               │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│                  APPLICATION LAYER (Next.js)                 │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
+│  │   Frontend   │  │  API Routes  │  │Server Actions│     │
+│  │  Components  │  │  (REST/API)  │  │   (Mutations)│     │
+│  └──────────────┘  └──────────────┘  └──────────────┘     │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│                      SERVICE LAYER                           │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
+│  │   Auth   │  │  Payment │  │    AI    │  │Notification│  │
+│  │ Service  │  │ Service  │  │ Service  │  │  Service   │  │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│                      DATA LAYER                              │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
+│  │   Supabase   │  │    Redis     │  │   Storage    │     │
+│  │  PostgreSQL  │  │    Cache     │  │   (R2/S3)    │     │
+│  └──────────────┘  └──────────────┘  └──────────────┘     │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│                  EXTERNAL INTEGRATIONS                       │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
+│  │Flutterwave│ │ WhatsApp │  │  Claude  │  │  Google  │   │
+│  │          │  │   API    │  │   API    │  │   APIs   │   │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Folder Structure
+
+```
+car-import-platform/
+├── .github/
+│   ├── workflows/
+│   │   ├── ci.yml
+│   │   ├── deploy-production.yml
+│   │   └── deploy-staging.yml
+│   └── ISSUE_TEMPLATE/
+│
+├── public/
+│   ├── images/
+│   ├── videos/
+│   ├── fonts/
+│   └── robots.txt
+│
+├── src/
+│   ├── app/                      # Next.js App Router
+│   │   ├── (marketing)/          # Marketing pages (no auth)
+│   │   │   ├── page.tsx          # Homepage
+│   │   │   ├── about/
+│   │   │   ├── how-it-works/
+│   │   │   ├── services/
+│   │   │   └── contact/
+│   │   │
+│   │   ├── inventory/            # Vehicle listings
+│   │   │   ├── page.tsx          # Grid view
+│   │   │   ├── [slug]/           # Vehicle detail
+│   │   │   └── compare/          # Comparison tool
+│   │   │
+│   │   ├── pre-order/            # Pre-order flow
+│   │   ├── corporate/            # Corporate solutions
+│   │   ├── financing/            # Financing info
+│   │   ├── testimonials/         # Customer reviews
+│   │   ├── blog/                 # Blog/articles
+│   │   │   ├── page.tsx
+│   │   │   ├── [slug]/
+│   │   │   └── category/[category]/
+│   │   │
+│   │   ├── (auth)/               # Authenticated routes
+│   │   │   ├── portal/           # Customer portal
+│   │   │   │   ├── dashboard/
+│   │   │   │   ├── orders/
+│   │   │   │   ├── messages/
+│   │   │   │   └── settings/
+│   │   │   └── admin/            # Admin dashboard
+│   │   │       ├── vehicles/
+│   │   │       ├── orders/
+│   │   │       ├── leads/
+│   │   │       ├── content/
+│   │   │       └── analytics/
+│   │   │
+│   │   ├── api/                  # API Routes
+│   │   │   ├── vehicles/
+│   │   │   ├── orders/
+│   │   │   ├── payments/
+│   │   │   ├── escrow/
+│   │   │   ├── webhooks/
+│   │   │   ├── chatbot/
+│   │   │   └── contact/
+│   │   │
+│   │   ├── layout.tsx            # Root layout
+│   │   ├── globals.css           # Global styles
+│   │   └── error.tsx             # Error boundary
+│   │
+│   ├── components/               # React components
+│   │   ├── ui/                   # Shadcn components
+│   │   ├── layouts/
+│   │   │   ├── Header.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   └── Sidebar.tsx
+│   │   ├── vehicles/
+│   │   │   ├── VehicleCard.tsx
+│   │   │   ├── VehicleGrid.tsx
+│   │   │   ├── VehicleDetail.tsx
+│   │   │   ├── ImageGallery.tsx
+│   │   │   ├── Viewer360.tsx
+│   │   │   └── ComparisonTable.tsx
+│   │   ├── forms/
+│   │   │   ├── ContactForm.tsx
+│   │   │   ├── ReserveForm.tsx
+│   │   │   ├── PreOrderForm.tsx
+│   │   │   └── FinancingCalculator.tsx
+│   │   ├── shared/
+│   │   │   ├── SearchBar.tsx
+│   │   │   ├── FilterPanel.tsx
+│   │   │   ├── PriceCalculator.tsx
+│   │   │   ├── Chatbot.tsx
+│   │   │   ├── LoadingSpinner.tsx
+│   │   │   └── ErrorBoundary.tsx
+│   │   └── animations/
+│   │       ├── FadeIn.tsx
+│   │       ├── SlideIn.tsx
+│   │       └── Parallax.tsx
+│   │
+│   ├── lib/                      # Utilities & configs
+│   │   ├── supabase/
+│   │   │   ├── client.ts
+│   │   │   ├── server.ts
+│   │   │   └── queries.ts
+│   │   ├── prisma/
+│   │   │   └── client.ts
+│   │   ├── utils/
+│   │   │   ├── cn.ts
+│   │   │   ├── formatters.ts
+│   │   │   └── validators.ts
+│   │   ├── services/
+│   │   │   ├── payment.service.ts
+│   │   │   ├── escrow.service.ts
+│   │   │   ├── email.service.ts
+│   │   │   ├── whatsapp.service.ts
+│   │   │   ├── ai.service.ts
+│   │   │   └── analytics.service.ts
+│   │   └── constants/
+│   │       ├── routes.ts
+│   │       ├── config.ts
+│   │       └── makes-models.ts
+│   │
+│   ├── types/                    # TypeScript types
+│   │   ├── vehicle.ts
+│   │   ├── order.ts
+│   │   ├── user.ts
+│   │   ├── payment.ts
+│   │   └── index.ts
+│   │
+│   ├── hooks/                    # Custom React hooks
+│   │   ├── useVehicles.ts
+│   │   ├── useSearch.ts
+│   │   ├── useFilters.ts
+│   │   ├── useAuth.ts
+│   │   └── useToast.ts
+│   │
+│   └── styles/                   # Additional styles
+│       ├── glassmorphism.css
+│       └── animations.css
+│
+├── prisma/
+│   ├── schema.prisma             # Database schema
+│   └── migrations/
+│
+├── scripts/
+│   ├── seed.ts                   # Seed database
+│   ├── scrape-dubai.ts           # Scrape Dubai listings
+│   └── backup.ts                 # Database backup
+│
+├── tests/
+│   ├── unit/
+│   ├── integration/
+│   └── e2e/
+│
+├── docs/
+│   ├── API.md
+│   ├── DEPLOYMENT.md
+│   ├── CONTRIBUTING.md
+│   └── CHANGELOG.md
+│
+├── .env.local                    # Environment variables
+├── .env.example
+├── .eslintrc.json
+├── .prettierrc
+├── next.config.js
+├── tailwind.config.ts
+├── tsconfig.json
+├── package.json
+├── README.md
+└── ARCHITECTURE.md               # This file
+```
+
+---
+
+## 🗄 DATABASE SCHEMA
+
+### Entity Relationship Diagram
+
+```
+┌─────────────┐       ┌─────────────┐       ┌─────────────┐
+│    Users    │───┐   │  Vehicles   │───┐   │   Orders    │
+├─────────────┤   │   ├─────────────┤   │   ├─────────────┤
+│ id          │   │   │ id          │   │   │ id          │
+│ email       │   │   │ make        │   │   │ user_id     │
+│ name        │   │   │ model       │   │   │ vehicle_id  │
+│ phone       │   └──>│ year        │   └──>│ status      │
+│ role        │       │ price       │       │ deposit     │
+│ created_at  │       │ location    │       │ total       │
+└─────────────┘       │ status      │       │ escrow_id   │
+                      │ images[]    │       │ created_at  │
+                      └─────────────┘       └─────────────┘
+                             │                      │
+                             ↓                      ↓
+                      ┌─────────────┐       ┌─────────────┐
+                      │   Images    │       │   Escrow    │
+                      ├─────────────┤       ├─────────────┤
+                      │ id          │       │ id          │
+                      │ vehicle_id  │       │ order_id    │
+                      │ url         │       │ lawyer_name │
+                      │ order       │       │ amount      │
+                      │ is_primary  │       │ status      │
+                      └─────────────┘       │ released_at │
+                                            └─────────────┘
+```
+
+### Prisma Schema
+
+```prisma
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USER MANAGEMENT
+// ============================================
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+  SALES_AGENT
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  phone         String?   @unique
+  name          String
+  role          UserRole  @default(CUSTOMER)
+  avatarUrl     String?
+  
+  // Customer-specific
+  location      String?
+  preferences   Json?     // Car preferences
+  
+  // Relations
+  orders        Order[]
+  savedVehicles SavedVehicle[]
+  messages      Message[]
+  reviews       Review[]
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@map("users")
+}
+
+// ============================================
+// VEHICLE INVENTORY
+// ============================================
+
+enum VehicleStatus {
+  IN_STOCK_KAMPALA
+  IN_STOCK_DUBAI
+  RESERVED
+  IN_TRANSIT
+  SOLD
+  UNAVAILABLE
+}
+
+enum VehicleLocation {
+  KAMPALA
+  DUBAI
+  MOMBASA
+  IN_TRANSIT
+}
+
+enum Transmission {
+  AUTOMATIC
+  MANUAL
+}
+
+enum FuelType {
+  PETROL
+  DIESEL
+  HYBRID
+  ELECTRIC
+}
+
+enum BodyType {
+  SEDAN
+  SUV
+  HATCHBACK
+  COUPE
+  WAGON
+  VAN
+  PICKUP
+}
+
+model Vehicle {
+  id              String          @id @default(cuid())
+  slug            String          @unique
+  
+  // Basic Info
+  make            String
+  model           String
+  year            Int
+  vin             String?         @unique
+  
+  // Specifications
+  mileage         Int             // in kilometers
+  engineSize      Float           // in liters
+  transmission    Transmission
+  fuelType        FuelType
+  bodyType        BodyType
+  color           String
+  seats           Int             @default(5)
+  doors           Int             @default(4)
+  
+  // Pricing
+  dubaiPrice      Decimal         @db.Decimal(12, 2)
+  shippingCost    Decimal         @db.Decimal(12, 2)
+  customsDuty     Decimal         @db.Decimal(12, 2)
+  otherFees       Decimal         @db.Decimal(12, 2)
+  totalLandedCost Decimal         @db.Decimal(12, 2)
+  sellingPrice    Decimal         @db.Decimal(12, 2)
+  
+  // Location & Status
+  location        VehicleLocation
+  status          VehicleStatus   @default(IN_STOCK_DUBAI)
+  
+  // Features
+  features        String[]        // ["Leather Seats", "Sunroof", etc]
+  description     String?         @db.Text
+  
+  // Inspection
+  inspectionReport String?        // URL to PDF
+  inspectionDate   DateTime?
+  inspectedBy      String?
+  
+  // Media
+  images          VehicleImage[]
+  videos          String[]        // Video URLs
+  
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+  
+  // Relations
+  orders          Order[]
+  savedBy         SavedVehicle[]
+  reviews         Review[]
+  
+  // Timestamps
+  arrivedAt       DateTime?       // When it arrived in Kampala
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  
+  @@index([make, model, year])
+  @@index([status, location])
+  @@index([sellingPrice])
+  @@map("vehicles")
+}
+
+model VehicleImage {
+  id         String   @id @default(cuid())
+  vehicleId  String
+  vehicle    Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  
+  url        String
+  alt        String?
+  order      Int      @default(0)
+  isPrimary  Boolean  @default(false)
+  
+  createdAt  DateTime @default(now())
+  
+  @@index([vehicleId])
+  @@map("vehicle_images")
+}
+
+model SavedVehicle {
+  id        String   @id @default(cuid())
+  userId    String
+  vehicleId String
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  
+  @@unique([userId, vehicleId])
+  @@map("saved_vehicles")
+}
+
+// ============================================
+// ORDERS & PAYMENTS
+// ============================================
+
+enum OrderStatus {
+  INQUIRY
+  QUOTED
+  DEPOSIT_PENDING
+  DEPOSIT_PAID
+  IN_ESCROW
+  VEHICLE_ORDERED
+  IN_TRANSIT
+  ARRIVED_KAMPALA
+  READY_FOR_INSPECTION
+  INSPECTION_APPROVED
+  FINAL_PAYMENT_PENDING
+  FINAL_PAYMENT_PAID
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
+
+enum OrderType {
+  RETAIL              // Buy existing stock
+  PRE_ORDER           // Import specific car
+  CORPORATE           // Fleet deal
+}
+
+model Order {
+  id             String       @id @default(cuid())
+  orderNumber    String       @unique // e.g., "ORD-2026-0001"
+  
+  // Relationships
+  userId         String
+  user           User         @relation(fields: [userId], references: [id])
+  vehicleId      String
+  vehicle        Vehicle      @relation(fields: [vehicleId], references: [id])
+  
+  // Order Details
+  type           OrderType    @default(RETAIL)
+  status         OrderStatus  @default(INQUIRY)
+  
+  // Pricing
+  vehiclePrice   Decimal      @db.Decimal(12, 2)
+  depositAmount  Decimal      @db.Decimal(12, 2)
+  finalAmount    Decimal      @db.Decimal(12, 2)
+  totalAmount    Decimal      @db.Decimal(12, 2)
+  
+  // Payment Tracking
+  depositPaidAt  DateTime?
+  finalPaidAt    DateTime?
+  
+  // Escrow
+  escrow         Escrow?
+  
+  // Timeline
+  estimatedDelivery DateTime?
+  actualDelivery    DateTime?
+  
+  // Documents
+  invoiceUrl     String?
+  contractUrl    String?
+  
+  // Notes
+  customerNotes  String?      @db.Text
+  internalNotes  String?      @db.Text
+  
+  // Relations
+  payments       Payment[]
+  messages       Message[]
+  timeline       OrderTimeline[]
+  
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  
+  @@index([userId])
+  @@index([status])
+  @@index([orderNumber])
+  @@map("orders")
+}
+
+enum EscrowStatus {
+  PENDING           // Funds not yet deposited
+  DEPOSITED         // Funds held by lawyer
+  VEHICLE_RECEIVED  // Customer received vehicle
+  INSPECTION_PASSED // Customer approved vehicle
+  RELEASED          // Funds released to seller
+  REFUNDED          // Funds returned to customer
+}
+
+model Escrow {
+  id             String        @id @default(cuid())
+  orderId        String        @unique
+  order          Order         @relation(fields: [orderId], references: [id])
+  
+  // Lawyer Details
+  lawyerName     String
+  lawyerEmail    String
+  lawyerPhone    String
+  lawFirm        String
+  
+  // Escrow Account
+  accountNumber  String
+  bankName       String
+  
+  // Amount
+  amount         Decimal       @db.Decimal(12, 2)
+  currency       String        @default("UGX")
+  
+  // Status
+  status         EscrowStatus  @default(PENDING)
+  
+  // Timeline
+  depositedAt    DateTime?
+  releasedAt     DateTime?
+  
+  // Documents
+  agreementUrl   String?       // Escrow agreement PDF
+  releaseFormUrl String?       // Customer sign-off
+  
+  // Notes
+  notes          String?       @db.Text
+  
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  
+  @@map("escrow")
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  MOBILE_MONEY
+  BANK_TRANSFER
+  CREDIT_CARD
+  CASH
+  ESCROW
+}
+
+model Payment {
+  id              String         @id @default(cuid())
+  orderId         String
+  order           Order          @relation(fields: [orderId], references: [id])
+  
+  // Payment Details
+  amount          Decimal        @db.Decimal(12, 2)
+  currency        String         @default("UGX")
+  method          PaymentMethod
+  status          PaymentStatus  @default(PENDING)
+  
+  // External Reference
+  transactionId   String?        @unique
+  providerRef     String?        // Flutterwave/Stripe reference
+  
+  // Metadata
+  phoneNumber     String?        // For mobile money
+  accountNumber   String?        // For bank transfer
+  receiptUrl      String?
+  
+  // Timestamps
+  paidAt          DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  
+  @@index([orderId])
+  @@index([status])
+  @@map("payments")
+}
+
+model OrderTimeline {
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  status      String   // e.g., "Deposit Paid", "Vehicle Shipped"
+  description String?  @db.Text
+  
+  createdAt   DateTime @default(now())
+  
+  @@index([orderId])
+  @@map("order_timeline")
+}
+
+// ============================================
+// COMMUNICATIONS
+// ============================================
+
+enum MessageStatus {
+  SENT
+  DELIVERED
+  READ
+  FAILED
+}
+
+model Message {
+  id         String        @id @default(cuid())
+  orderId    String?
+  order      Order?        @relation(fields: [orderId], references: [id])
+  userId     String
+  user       User          @relation(fields: [userId], references: [id])
+  
+  content    String        @db.Text
+  isFromUser Boolean       @default(true)
+  status     MessageStatus @default(SENT)
+  
+  createdAt  DateTime      @default(now())
+  readAt     DateTime?
+  
+  @@index([orderId])
+  @@index([userId])
+  @@map("messages")
+}
+
+// ============================================
+// REVIEWS & TESTIMONIALS
+// ============================================
+
+model Review {
+  id         String   @id @default(cuid())
+  vehicleId  String
+  vehicle    Vehicle  @relation(fields: [vehicleId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  
+  rating     Int      // 1-5 stars
+  title      String?
+  comment    String   @db.Text
+  
+  // Media
+  images     String[] // Photo URLs
+  videoUrl   String?
+  
+  // Moderation
+  isApproved Boolean  @default(false)
+  isPublic   Boolean  @default(true)
+  
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  @@index([vehicleId])
+  @@index([userId])
+  @@map("reviews")
+}
+
+// ============================================
+// BLOG & CONTENT
+// ============================================
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model BlogPost {
+  id              String     @id @default(cuid())
+  slug            String     @unique
+  
+  title           String
+  excerpt         String     @db.Text
+  content         String     @db.Text
+  featuredImage   String?
+  
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+  keywords        String[]
