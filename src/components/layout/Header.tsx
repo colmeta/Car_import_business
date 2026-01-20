@@ -35,7 +35,11 @@ export default function Header() {
             <nav className="container mx-auto flex items-center justify-between px-4 py-4 lg:px-8">
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-3">
-                    <img src="/images/logo.png" alt="AJ24 MOTORS" className="h-12 w-auto object-contain" />
+                    <img src="/images/logo.png" alt="AJ24 MOTORS" className="h-12 w-auto object-contain rounded-2xl" />
+                    <div className="hidden sm:block">
+                        <h1 className="text-xl font-bold text-white">AJ24 MOTORS</h1>
+                        <p className="text-xs text-slate-400">Import Intelligence</p>
+                    </div>
                 </Link>
 
                 {/* Desktop Navigation */}

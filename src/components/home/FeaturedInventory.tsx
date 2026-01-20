@@ -64,13 +64,32 @@ function VehicleCard({ vehicle, index }: any) {
             {/* Image */}
             <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl bg-slate-800">
                 {/* Placeholder - Replace with actual images */}
-                <div className="vehicle-card-image flex h-full items-center justify-center bg-gradient-to-br from-brand-900 to-slate-800">
-                    <div className="text-center">
-                        <div className="text-3xl font-bold text-white">
+                {/* Placeholder Image */}
+                <div className="vehicle-card-image flex h-full items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 group-hover:from-slate-700 group-hover:to-slate-800 transition-colors">
+                    <div className="text-center opacity-50 group-hover:opacity-100 transition-opacity">
+                        <div className="mb-2 flex justify-center">
+                            <div className="rounded-full bg-white/10 p-4">
+                                {/* Use a simple SVG car icon or similar here if not importing new icons, but we have Lucide */}
+                                <svg 
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    viewBox="0 0 24 24" 
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    strokeWidth="1.5" 
+                                    strokeLinecap="round" 
+                                    strokeLinejoin="round" 
+                                    className="h-12 w-12 text-slate-400"
+                                >
+                                    <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
+                                    <circle cx="7" cy="17" r="2" />
+                                    <path d="M9 17h6" />
+                                    <circle cx="17" cy="17" r="2" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div className="text-xl font-bold text-slate-500">
                             {vehicle.make}
                         </div>
-                        <div className="text-lg text-slate-400">{vehicle.model}</div>
-                        <div className="mt-2 text-xs text-slate-500">{vehicle.year}</div>
                     </div>
                 </div>
 

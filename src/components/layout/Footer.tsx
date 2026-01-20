@@ -9,9 +9,7 @@ export default function Footer() {
                     {/* Brand Column */}
                     <div>
                         <div className="mb-4 flex items-center space-x-3">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-400 to-accent-400">
-                                <span className="text-xl font-bold text-white">AJ</span>
-                            </div>
+                            <img src="/images/logo.png" alt="AJ24 MOTORS" className="h-12 w-auto object-contain rounded-2xl" />
                             <div>
                                 <h3 className="text-lg font-bold text-white">AJ24 MOTORS</h3>
                                 <p className="text-xs text-slate-400">Import Intelligence</p>
