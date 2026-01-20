@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         default: 'AJ24 MOTORS | Import Intelligence. Drive Excellence.',
         template: '%s | AJ24 MOTORS',
     },
-    description: 'Premium automotive marketplace for importing and selling vehicles from Dubai to Uganda. Fortune 500-level platform with dual escrow system, 3D vehicle visualization, and executive portals.',
+    description: 'Premium automotive marketplace for importing and selling vehicles from Dubai to Uganda. World-class platform with dual escrow system, 3D vehicle visualization, and executive portals.',
     keywords: [
         'car import Uganda',
         'Dubai cars Kampala',

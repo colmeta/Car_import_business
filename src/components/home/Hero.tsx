@@ -47,7 +47,7 @@ export default function Hero() {
                         className="mx-auto mb-12 max-w-2xl text-xl text-slate-300"
                     >
                         Premium automotive marketplace for importing vehicles from Dubai.
-                        Fortune 500-level platform with blockchain escrow, 3D visualization,
+                        World-class platform with blockchain escrow, 3D visualization,
                         and executive portals.
                     </motion.p>
 
@@ -72,6 +72,21 @@ export default function Hero() {
                             <TrendingUp className="h-4 w-4" />
                             <span>Corporate Solutions</span>
                         </Link>
+                    </motion.div>
+
+                    {/* Hero Image */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="relative mx-auto mb-16 max-w-5xl"
+                    >
+                        <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-brand-400 to-accent-400 opacity-20 blur-2xl" />
+                        <img
+                            src="/images/hero-car.png"
+                            alt="Premium Luxury SUV"
+                            className="relative z-10 w-full drop-shadow-2xl"
+                        />
                     </motion.div>
 
                     {/* Search Bar */}

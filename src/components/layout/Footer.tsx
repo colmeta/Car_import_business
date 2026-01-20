@@ -18,7 +18,7 @@ export default function Footer() {
                             </div>
                         </div>
                         <p className="mb-6 text-sm text-slate-400">
-                            Fortune 500-level automotive marketplace for importing premium vehicles from Dubai to Uganda.
+                            World-class automotive marketplace for importing premium vehicles from Dubai to Uganda.
                         </p>
                         <div className="flex space-x-4">
                             {socialLinks.map((social) => (

@@ -28,20 +28,14 @@ export default function Header() {
     return (
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                    ? 'glass-card border-b border-white/10 backdrop-blur-xl'
-                    : 'bg-transparent'
+                ? 'glass-card border-b border-white/10 backdrop-blur-xl'
+                : 'bg-transparent'
                 }`}
         >
             <nav className="container mx-auto flex items-center justify-between px-4 py-4 lg:px-8">
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-400 to-accent-400">
-                        <span className="text-xl font-bold text-white">AJ</span>
-                    </div>
-                    <div>
-                        <h1 className="text-xl font-bold text-white">AJ24 MOTORS</h1>
-                        <p className="text-xs text-slate-400">Import Intelligence</p>
-                    </div>
+                    <img src="/images/logo.png" alt="AJ24 MOTORS" className="h-12 w-auto object-contain" />
                 </Link>
 
                 {/* Desktop Navigation */}
