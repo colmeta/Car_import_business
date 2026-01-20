@@ -2,16 +2,17 @@ import { Car, Shield, CircleDollarSign, FileCheck } from 'lucide-react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-    const title = params.slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const title = slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     return {
         title: `${title} | AJ24 MOTORS`,
         description: `Premium ${title} services by AJ24 MOTORS.`,
     };
 }
 
-export default function ServicePage({ params }: { params: { slug: string } }) {
-    const slug = params.slug;
+export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
 
     // Simple mapping for demo purposes
     const serviceDetails: Record<string, any> = {
