@@ -25,9 +25,6 @@ const config: NextConfig = {
     // Performance: Compression
     compress: true,
 
-    // Performance: Enable SWC minification
-    swcMinify: true,
-
     // Performance: Reduce page data size
     poweredByHeader: false,
 
