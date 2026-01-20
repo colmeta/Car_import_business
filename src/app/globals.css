@@ -8,6 +8,7 @@
    ============================================= */
 
 @layer components {
+
   /* Glass Card - Premium Feel */
   .glass-card {
     @apply relative overflow-hidden rounded-2xl border border-white/10;
@@ -17,14 +18,14 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   .glass-card:hover {
     @apply border-brand-400/50;
     background: rgba(15, 23, 42, 0.8);
     transform: translateY(-4px);
     box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
   }
-  
+
   /* Glass Button */
   .glass-button {
     @apply relative overflow-hidden rounded-xl border border-brand-400/30 px-8 py-4;
@@ -32,18 +33,18 @@
     background: rgba(59, 130, 246, 0.2);
     backdrop-filter: blur(8px);
   }
-  
+
   .glass-button:hover {
     @apply border-brand-400/60;
     background: rgba(59, 130, 246, 0.4);
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
     transform: scale(1.02);
   }
-  
+
   .glass-button:active {
     transform: scale(0.98);
   }
-  
+
   /* Premium Gradient Text */
   .gradient-text {
     @apply bg-gradient-to-r from-brand-400 to-accent-400;
@@ -51,13 +52,13 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
+
   /* Executive Dashboard Card */
   .dashboard-card {
     @apply glass-card p-6;
     @apply transition-transform duration-300 hover:scale-105;
   }
-  
+
   /* Premium Input */
   .premium-input {
     @apply w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3;
@@ -65,30 +66,28 @@
     @apply backdrop-blur-sm transition-all;
     @apply focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/50;
   }
-  
+
   /* Vehicle Card (Special for AJ24) */
   .vehicle-card {
     @apply glass-card group cursor-pointer overflow-hidden;
   }
-  
+
   .vehicle-card:hover .vehicle-card-image {
     @apply scale-110;
   }
-  
+
   .vehicle-card-image {
     @apply transition-transform duration-500 ease-out;
   }
-  
+
   /* Hero Section Background */
   .hero-gradient {
-    background: linear-gradient(
-      135deg,
-      rgba(15, 23, 42, 0.95) 0%,
-      rgba(30, 41, 59, 0.9) 50%,
-      rgba(15, 23, 42, 0.95) 100%
-    );
+    background: linear-gradient(135deg,
+        rgba(15, 23, 42, 0.95) 0%,
+        rgba(30, 41, 59, 0.9) 50%,
+        rgba(15, 23, 42, 0.95) 100%);
   }
-  
+
   /* 3D Card Effect */
   .card-3d {
     transform-style: preserve-3d;
@@ -103,29 +102,27 @@
 @layer utilities {
   .animate-shimmer {
     animation: shimmer 2s linear infinite;
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      rgba(255, 255, 255, 0.1) 50%,
-      transparent 100%
-    );
+    background: linear-gradient(to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%);
     background-size: 200% 100%;
   }
-  
+
   .perspective-1000 {
     perspective: 1000px;
   }
-  
+
   .preserve-3d {
     transform-style: preserve-3d;
   }
-  
+
   /* Scroll Snap for Vehicle Gallery */
   .snap-container {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   .snap-item {
     scroll-snap-align: center;
   }
@@ -137,33 +134,33 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-white/20;
   }
-  
+
   body {
     @apply bg-slate-900 text-white antialiased;
   }
-  
+
   h1 {
     @apply text-h1 font-heading font-bold tracking-tight;
   }
-  
+
   h2 {
     @apply text-h2 font-heading font-bold tracking-tight;
   }
-  
+
   h3 {
     @apply text-h3 font-heading font-semibold;
   }
-  
+
   h4 {
     @apply text-h4 font-heading font-semibold;
   }
-  
+
   p {
     @apply text-base leading-relaxed text-slate-300;
   }
-  
+
   a {
     @apply text-brand-400 transition-colors hover:text-brand-300;
   }
@@ -216,11 +213,11 @@
   .no-print {
     display: none !important;
   }
-  
+
   body {
     @apply bg-white text-black;
   }
-  
+
   .glass-card {
     @apply border border-gray-300 bg-white;
     backdrop-filter: none;
@@ -254,6 +251,7 @@
    ============================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
