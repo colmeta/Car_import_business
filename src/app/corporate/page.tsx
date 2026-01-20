@@ -1,3 +1,4 @@
+// Rebuild trigger
 import { Building2, Briefcase, BarChart3, Users } from 'lucide-react';
 import { Metadata } from 'next';
 

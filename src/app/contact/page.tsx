@@ -1,3 +1,4 @@
+// Rebuild trigger
 'use client';
 
 import { Mail, Phone, MapPin, Send } from 'lucide-react';

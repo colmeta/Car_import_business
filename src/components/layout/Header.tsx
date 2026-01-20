@@ -36,7 +36,7 @@ export default function Header() {
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-3">
                     <img src="/images/logo.png" alt="AJ24 MOTORS" className="h-12 w-auto object-contain rounded-2xl" />
-                    <div className="hidden sm:block">
+                    <div className="block">
                         <h1 className="text-xl font-bold text-white">AJ24 MOTORS</h1>
                         <p className="text-xs text-slate-400">Import Intelligence</p>
                     </div>
