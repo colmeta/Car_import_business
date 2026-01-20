@@ -1,6 +1,13 @@
 import type { Metadata } from 'next';
 import { Inter, Poppins, Space_Grotesk } from 'next/font/google';
+import dynamic from 'next/dynamic';
 import './globals.css';
+
+// Dynamically import performance monitor (dev only)
+const PerformanceMonitor = dynamic(
+    () => import('@/components/performance/PerformanceMonitor'),
+    { ssr: false }
+);
 
 const inter = Inter({
     subsets: ['latin'],
@@ -87,6 +94,7 @@ export default function RootLayout({
                 suppressHydrationWarning
             >
                 {children}
+                <PerformanceMonitor />
             </body>
         </html>
     );

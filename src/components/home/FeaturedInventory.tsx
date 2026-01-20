@@ -5,58 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Heart, Eye, ArrowRight } from 'lucide-react';
+import { vehicles } from '@/lib/data/vehicles';
 
-// Mock data - in production, this would come from Supabase
-const featuredVehicles = [
-    {
-        id: '1',
-        slug: 'toyota-land-cruiser-2020',
-        make: 'Toyota',
-        model: 'Land Cruiser',
-        year: 2020,
-        mileage: 45000,
-        price: 85000000, // UGX
-        image: '/images/vehicles/land-cruiser.jpg',
-        location: 'Kampala',
-        features: ['4WD', 'Leather', 'Sunroof'],
-    },
-    {
-        id: '2',
-        slug: 'toyota-harrier-2019',
-        make: 'Toyota',
-        model: 'Harrier',
-        year: 2019,
-        mileage: 38000,
-        price: 72000000,
-        image: '/images/vehicles/harrier.jpg',
-        location: 'In Transit',
-        features: ['Hybrid', 'Premium Sound', 'Panoramic Roof'],
-    },
-    {
-        id: '3',
-        slug: 'nissan-xtrail-2021',
-        make: 'Nissan',
-        model: 'X-Trail',
-        year: 2021,
-        mileage: 28000,
-        price: 68000000,
-        image: '/images/vehicles/xtrail.jpg',
-        location: 'Dubai',
-        features: ['7-Seater', 'Navigation', 'Reverse Camera'],
-    },
-    {
-        id: '4',
-        slug: 'mercedes-benz-gls-2021',
-        make: 'Mercedes-Benz',
-        model: 'GLS 450',
-        year: 2021,
-        mileage: 22000,
-        price: 180000000,
-        image: '/images/vehicles/gls.jpg',
-        location: 'Kampala',
-        features: ['Air Suspension', 'Massage Seats', 'Premium Plus'],
-    },
-];
+// Get first 8 available vehicles for featured section
+const featuredVehicles = vehicles.filter(v => v.status === 'available').slice(0, 8);
 
 export default function FeaturedInventory() {
     return (
@@ -100,7 +52,6 @@ export default function FeaturedInventory() {
 
 function VehicleCard({ vehicle, index }: any) {
     const [liked, setLiked] = useState(false);
-    const [views] = useState(Math.floor(Math.random() * 500) + 100);
 
     return (
         <motion.div
@@ -115,10 +66,11 @@ function VehicleCard({ vehicle, index }: any) {
                 {/* Placeholder - Replace with actual images */}
                 <div className="vehicle-card-image flex h-full items-center justify-center bg-gradient-to-br from-brand-900 to-slate-800">
                     <div className="text-center">
-                        <div className="text-4xl font-bold text-white">
+                        <div className="text-3xl font-bold text-white">
                             {vehicle.make}
                         </div>
                         <div className="text-lg text-slate-400">{vehicle.model}</div>
+                        <div className="mt-2 text-xs text-slate-500">{vehicle.year}</div>
                     </div>
                 </div>
 
@@ -141,6 +93,15 @@ function VehicleCard({ vehicle, index }: any) {
                         📍 {vehicle.location}
                     </span>
                 </div>
+
+                {/* Status Badge */}
+                {vehicle.status !== 'available' && (
+                    <div className="absolute top-2 left-2">
+                        <span className="rounded-full bg-accent-400 px-3 py-1 text-xs font-bold text-white uppercase">
+                            {vehicle.status}
+                        </span>
+                    </div>
+                )}
             </div>
 
             {/* Content */}
@@ -156,9 +117,11 @@ function VehicleCard({ vehicle, index }: any) {
                 <div className="mb-4 flex items-center space-x-4 text-sm text-slate-400">
                     <span>{vehicle.mileage.toLocaleString()} km</span>
                     <span>•</span>
+                    <span>{vehicle.transmission}</span>
+                    <span>•</span>
                     <div className="flex items-center space-x-1">
                         <Eye className="h-4 w-4" />
-                        <span>{views}</span>
+                        <span>{vehicle.views}</span>
                     </div>
                 </div>
 
@@ -179,7 +142,10 @@ function VehicleCard({ vehicle, index }: any) {
                     <div>
                         <div className="text-xs text-slate-400">Price</div>
                         <div className="text-xl font-bold text-white">
-                            UGX {(vehicle.price / 1000000).toFixed(1)}M
+                            UGX {(vehicle.price / 1000000).toFixed(0)}M
+                        </div>
+                        <div className="text-xs text-slate-500">
+                            ~${vehicle.priceUSD.toLocaleString()}
                         </div>
                     </div>
                     <Link
